@@ -4,7 +4,7 @@ import VideoList from "./components/video-list/video-list";
 import videoList from "./mock-data/video-list.json";
 import Nav from "./nav/nav";
 
-function App() {
+function App({ youtube }) {
   const [videos, setVideos] = useState(videoList.items);
 
   useEffect(() => {
@@ -13,9 +13,15 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const search = (query) => {
+    youtube
+      .search(query) //
+      .then((results) => setVideos(results));
+  };
+
   return (
     <>
-      <Nav />
+      <Nav onSearch={search} />
       <VideoList videos={videos} />
     </>
   );

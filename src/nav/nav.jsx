@@ -1,25 +1,47 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./nav.module.css";
+import logo from "../images/youtube-logo.png";
 
-const Nav = (props) => (
-  <nav className={styles.nav}>
-    <div className={styles["nav-content"]}>
-      <span>마이튜브</span>
-      <div className={styles["search-form"]}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <input
-            className={styles["search-form-input"]}
-            type="text"
-            placeholder="검색어를 입력하세요"
-          />
-        </form>
+const Nav = ({ onSearch }) => {
+  const inputRef = useRef();
+
+  const handleSearch = () => {
+    const query = inputRef.current.value;
+    onSearch(query);
+  };
+
+  const onSearchButtonClick = (e) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
+  return (
+    <nav className={styles.nav}>
+      <div className={styles["nav-content"]}>
+        <div className={styles.logo}>
+          <img src={logo} alt="logo" style={{ width: 50, height: 100 + "%" }} />
+          <span className={styles["logo-text"]}>마이튜브</span>
+        </div>
+        <div className={styles["search-form"]}>
+          <form onSubmit={onSearchButtonClick}>
+            <input
+              className={styles["search-form-input"]}
+              type="search"
+              placeholder="검색어를 입력하세요"
+              ref={inputRef}
+            />
+          </form>
+          <button
+            className={styles["search-button"]}
+            type="submit"
+            onClick={onSearchButtonClick}
+          >
+            검색
+          </button>
+        </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 export default Nav;
