@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./app.css";
 import VideoList from "./components/video-list/video-list";
 import videoList from "./mock-data/video-list.json";
+import Nav from "./nav/nav";
 
 function App() {
   const [videos, setVideos] = useState(videoList.items);
@@ -12,7 +13,12 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <VideoList videos={videos} />;
+  return (
+    <>
+      <Nav />
+      <VideoList videos={videos} />
+    </>
+  );
 }
 
 export default App;
