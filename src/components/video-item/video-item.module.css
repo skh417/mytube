@@ -4,10 +4,11 @@
   cursor: pointer;
   transition: box-shadow 0.2s ease;
   width: 320px;
+  box-shadow: 1px 1px 5px 0px rgba(102, 96, 96, 0.5);
 }
 
 .video-item:hover {
-  box-shadow: 1px 1px 3px 1px #000000;
+  box-shadow: 4px 3px 5px 0px rgba(102, 96, 96, 0.75);
 }
 
 .thumbnail {
