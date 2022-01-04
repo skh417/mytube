@@ -10,7 +10,9 @@ function App({ youtube }) {
   const [selectVideo, setSelectVideo] = useState(null);
 
   useEffect(() => {
-    youtube.getMostPopular().then((res) => setVideos(res));
+    youtube
+      .getMostPopular() //
+      .then((res) => setVideos(res));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

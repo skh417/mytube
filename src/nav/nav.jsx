@@ -16,6 +16,7 @@ const Nav = memo(({ onSearch, setSelectVideo }) => {
   };
 
   const moveToHome = () => {
+    inputRef.current.value = "";
     setSelectVideo(null);
   };
 

@@ -29,8 +29,11 @@ class YoutubeAxios {
           q: query,
         },
       });
-      console.log(">", response.data.items);
-      return response.data.items;
+
+      return response.data.items.map((item) => ({
+        ...item,
+        id: item.id.videoId,
+      }));
     } catch (error) {
       console.log(error);
     }
