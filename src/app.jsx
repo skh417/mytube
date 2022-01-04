@@ -16,6 +16,12 @@ function App({ youtube }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const getMostPopularVideos = useCallback(() => {
+    youtube
+      .getMostPopular() //
+      .then((res) => setVideos(res));
+  }, [youtube]);
+
   const search = useCallback(
     (query) => {
       youtube
@@ -36,7 +42,11 @@ function App({ youtube }) {
 
   return (
     <>
-      <Nav onSearch={search} setSelectVideo={setSelectVideo} />
+      <Nav
+        onSearch={search}
+        setSelectVideo={setSelectVideo}
+        getMostPopularVideos={getMostPopularVideos}
+      />
       <main className={selectVideo ? "play-video" : ""}>
         {selectVideo && <VideoDetail video={selectVideo} />}
         <VideoList

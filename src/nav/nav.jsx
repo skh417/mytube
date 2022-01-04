@@ -2,7 +2,7 @@ import React, { useRef, memo } from "react";
 import styles from "./nav.module.css";
 import logo from "../images/youtube-logo.png";
 
-const Nav = memo(({ onSearch, setSelectVideo }) => {
+const Nav = memo(({ onSearch, setSelectVideo, getMostPopularVideos }) => {
   const inputRef = useRef();
 
   const handleSearch = () => {
@@ -18,6 +18,7 @@ const Nav = memo(({ onSearch, setSelectVideo }) => {
   const moveToHome = () => {
     inputRef.current.value = "";
     setSelectVideo(null);
+    getMostPopularVideos();
   };
 
   return (
