@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./app.css";
 import VideoDetail from "./components/video-detail/video-detail";
 import VideoList from "./components/video-list/video-list";
-import videoList from "./mock-data/video-list.json";
+// import videoList from "./mock-data/video-list.json";
 import Nav from "./nav/nav";
 
 function App({ youtube }) {

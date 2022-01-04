@@ -2,8 +2,7 @@ import React, { useRef, memo } from "react";
 import styles from "./nav.module.css";
 import logo from "../images/youtube-logo.png";
 
-const Nav = memo(({ onSearch }) => {
-  console.log("nav render");
+const Nav = memo(({ onSearch, setSelectVideo }) => {
   const inputRef = useRef();
 
   const handleSearch = () => {
@@ -16,10 +15,14 @@ const Nav = memo(({ onSearch }) => {
     handleSearch();
   };
 
+  const moveToHome = () => {
+    setSelectVideo(null);
+  };
+
   return (
     <nav className={styles.nav}>
       <div className={styles["nav-content"]}>
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={moveToHome}>
           <img src={logo} alt="logo" style={{ width: 50, height: 100 + "%" }} />
           <span className={styles["logo-text"]}>마이튜브</span>
         </div>
