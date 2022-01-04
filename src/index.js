@@ -2,9 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./app";
-import Youtube from "./service/api";
+import YoutubeAxios from "./service/axios-api";
+import axios from "axios";
 
-const youtube = new Youtube(process.env.REACT_APP_YOUTUBE_API_KEY);
+const htmlClient = axios.create({
+  baseURL: "https://www.googleapis.com/youtube/v3",
+  params: { key: process.env.REACT_APP_YOUTUBE_API_KEY },
+});
+
+const youtube = new YoutubeAxios(htmlClient);
 
 ReactDOM.render(
   <React.StrictMode>

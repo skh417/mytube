@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, memo } from "react";
 import styles from "./nav.module.css";
 import logo from "../images/youtube-logo.png";
 
-const Nav = React.memo(({ onSearch }) => {
+const Nav = memo(({ onSearch }) => {
+  console.log("nav render");
   const inputRef = useRef();
 
   const handleSearch = () => {

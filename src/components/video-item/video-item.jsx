@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./video-item.module.css";
 
-const VideoItem = ({ video, video: { snippet }, onVideoClick }) => {
+const VideoItem = memo(({ video, video: { snippet }, onVideoClick }) => {
   return (
     <li className={styles["video-item"]} onClick={() => onVideoClick(video)}>
       <img
@@ -15,6 +15,6 @@ const VideoItem = ({ video, video: { snippet }, onVideoClick }) => {
       </div>
     </li>
   );
-};
+});
 
 export default VideoItem;

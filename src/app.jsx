@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./app.css";
 import VideoDetail from "./components/video-detail/video-detail";
 import VideoList from "./components/video-list/video-list";
@@ -15,14 +15,17 @@ function App({ youtube }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const search = (query) => {
-    youtube
-      .search(query) //
-      .then((results) => {
-        setVideos(results);
-        setSelectVideo(null);
-      });
-  };
+  const search = useCallback(
+    (query) => {
+      youtube
+        .search(query) //
+        .then((results) => {
+          setVideos(results);
+          setSelectVideo(null);
+        });
+    },
+    [youtube]
+  );
 
   const onVideoClick = (video) => {
     console.log("선택된 비디오 : ", video);
