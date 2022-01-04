@@ -18,17 +18,21 @@ function App({ youtube }) {
   const search = (query) => {
     youtube
       .search(query) //
-      .then((results) => setVideos(results));
+      .then((results) => {
+        setVideos(results);
+        setSelectVideo(null);
+      });
   };
 
   const onVideoClick = (video) => {
     console.log("선택된 비디오 : ", video);
     setSelectVideo(video);
+    window.scroll(0, 0);
   };
 
   return (
     <>
-      <Nav onSearch={search} />
+      <Nav onSearch={search} setSelectVideo={setSelectVideo} />
       <main className={selectVideo ? "play-video" : ""}>
         {selectVideo && <VideoDetail video={selectVideo} />}
         <VideoList
