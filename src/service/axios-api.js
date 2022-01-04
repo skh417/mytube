@@ -3,6 +3,22 @@ class YoutubeAxios {
     this.youtube = httpClient;
   }
 
+  async getMostPopular() {
+    try {
+      const response = await this.youtube.get("videos", {
+        params: {
+          part: "snippet",
+          chart: "mostPopular",
+          regionCode: "KR",
+          maxResults: 25,
+        },
+      });
+      return response.data.items;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async search(query) {
     try {
       const response = await this.youtube.get("search", {

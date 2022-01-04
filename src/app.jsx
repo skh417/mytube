@@ -6,12 +6,11 @@ import videoList from "./mock-data/video-list.json";
 import Nav from "./nav/nav";
 
 function App({ youtube }) {
-  const [videos, setVideos] = useState(videoList.items);
+  const [videos, setVideos] = useState([]);
   const [selectVideo, setSelectVideo] = useState(null);
 
   useEffect(() => {
-    setVideos(videoList.items);
-    console.log("videos:", videos);
+    youtube.getMostPopular().then((res) => setVideos(res));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
