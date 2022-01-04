@@ -1,0 +1,30 @@
+.container {
+  /* border: 2px solid plum; */
+
+  flex-grow: 1;
+}
+
+.data {
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.channel,
+.publish-time {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.publish-time {
+  margin-top: 10px;
+}
+
+.video-description {
+  padding: 40px 0;
+  line-height: 1.5rem;
+}

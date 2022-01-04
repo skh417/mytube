@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import "./app.css";
+import VideoDetail from "./components/video-detail/video-detail";
 import VideoList from "./components/video-list/video-list";
 import videoList from "./mock-data/video-list.json";
 import Nav from "./nav/nav";
 
 function App({ youtube }) {
   const [videos, setVideos] = useState(videoList.items);
+  const [selectVideo, setSelectVideo] = useState(null);
 
   useEffect(() => {
     setVideos(videoList.items);
@@ -19,10 +21,22 @@ function App({ youtube }) {
       .then((results) => setVideos(results));
   };
 
+  const onVideoClick = (video) => {
+    console.log("선택된 비디오 : ", video);
+    setSelectVideo(video);
+  };
+
   return (
     <>
       <Nav onSearch={search} />
-      <VideoList videos={videos} />
+      <main className={selectVideo ? "play-video" : ""}>
+        {selectVideo && <VideoDetail video={selectVideo} />}
+        <VideoList
+          videos={videos}
+          onVideoClick={onVideoClick}
+          selectVideo={selectVideo}
+        />
+      </main>
     </>
   );
 }

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styles from "./nav.module.css";
 import logo from "../images/youtube-logo.png";
 
-const Nav = ({ onSearch }) => {
+const Nav = React.memo(({ onSearch }) => {
   const inputRef = useRef();
 
   const handleSearch = () => {
@@ -42,6 +42,6 @@ const Nav = ({ onSearch }) => {
       </div>
     </nav>
   );
-};
+});
 
 export default Nav;
