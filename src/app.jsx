@@ -1,54 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
-import "./app.css";
-import VideoDetail from "./components/video-detail/video-detail";
+import { useNavigate } from "react-router-dom";
 import VideoList from "./components/video-list/video-list";
-// import videoList from "./mock-data/video-list.json";
 import Nav from "./nav/nav";
+import "./app.css";
 
-function App({ youtube }) {
-  const [videos, setVideos] = useState([]);
-  const [selectVideo, setSelectVideo] = useState(null);
+function App({ videos, selectVideo, setSelectVideo }) {
+  const navigate = useNavigate();
 
   useEffect(() => {
-    youtube
-      .getMostPopular() //
-      .then((res) => setVideos(res));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setSelectVideo(null);
   }, []);
-
-  const getMostPopularVideos = useCallback(() => {
-    youtube
-      .getMostPopular() //
-      .then((res) => setVideos(res));
-  }, [youtube]);
-
-  const search = useCallback(
-    (query) => {
-      youtube
-        .search(query) //
-        .then((results) => {
-          setVideos(results);
-          setSelectVideo(null);
-        });
-    },
-    [youtube]
-  );
 
   const onVideoClick = (video) => {
     console.log("선택된 비디오 : ", video);
     setSelectVideo(video);
-    window.scroll(0, 0);
+    navigate(`/video/${video.id}`, { replace: false, state: video });
   };
 
   return (
     <>
-      <Nav
-        onSearch={search}
-        setSelectVideo={setSelectVideo}
-        getMostPopularVideos={getMostPopularVideos}
-      />
-      <main className={selectVideo ? "play-video" : ""}>
-        {selectVideo && <VideoDetail video={selectVideo} />}
+      <main>
         <VideoList
           videos={videos}
           onVideoClick={onVideoClick}

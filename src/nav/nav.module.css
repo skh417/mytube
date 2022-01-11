@@ -11,8 +11,13 @@
   max-width: 1100px;
   margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
+}
+
+.nav-content-main {
+  display: flex;
 }
 
 .logo {
@@ -60,6 +65,16 @@
   font-weight: 600;
   background-color: #ff0000;
   border: none;
+}
+
+.login {
+  display: flex;
+}
+
+.login-button {
+  width: 5rem;
+  padding: 0.5rem 0.2rem;
+  border-radius: 2px;
 }
 
 @media screen and (max-width: 1160px) {

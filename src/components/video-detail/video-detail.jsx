@@ -1,41 +1,29 @@
 import React from "react";
+import { useParams, useLocation, Outlet } from "react-router-dom";
 import styles from "./video-detail.module.css";
 
-const VideoDetail = ({ video }) => {
-  const { snippet } = video;
+const VideoDetail = () => {
+  const { id } = useParams();
+  const {
+    state: { snippet },
+  } = useLocation();
 
-  const createAt = () => {
-    const dateData = new Date(snippet.publishTime);
-    const year = dateData.getFullYear();
-    const month = dateData.getMonth() + 1;
-    const date = dateData.getDate();
-
-    return `${year}년 ${month}월 ${date}일`;
-  };
+  console.log(snippet);
 
   return (
     <section className={styles.container}>
-      <div>
+      <div className={styles.player}>
+        <h2>{snippet.title}</h2>
         <iframe
-          className={styles["video-player"]}
-          title={snippet.title}
+          title="youtube-video"
           type="text/html"
-          width="100%"
+          width="720"
           height="405"
-          src={`https://www.youtube.com/embed/${video.id}?color=red`}
+          src={`https://www.youtube.com/embed/${id}`}
           frameBorder="0"
           allowFullScreen
-        />
+        ></iframe>
       </div>
-
-      <div className={styles.data}>
-        <h2 className={styles.title}>{snippet.title}</h2>
-        <div className={styles.channel}>
-          <em>{snippet.channelTitle}</em>
-        </div>
-        <div className={styles["publish-time"]}>{createAt()}</div>
-      </div>
-      <div className={styles["video-description"]}>{snippet.description}</div>
     </section>
   );
 };
