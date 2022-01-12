@@ -1,3 +1,18 @@
 .container {
-  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.player {
+  border: 1px solid red;
+  width: 100%;
+}
+
+.video-data {
+  padding: 20px;
+}
+
+.title {
+  margin-bottom: 20px;
 }

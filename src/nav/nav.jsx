@@ -3,7 +3,7 @@ import styles from "./nav.module.css";
 import logo from "../images/youtube-logo.png";
 import { useNavigate } from "react-router-dom";
 
-const Nav = memo(({ onSearch, setSelectVideo, getMostPopularVideos }) => {
+const Nav = memo(({ onSearch, getMostPopularVideos }) => {
   const inputRef = useRef();
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Nav = memo(({ onSearch, setSelectVideo, getMostPopularVideos }) => {
 
   const moveToHome = () => {
     inputRef.current.value = "";
-    setSelectVideo(null);
+
     getMostPopularVideos();
     navigate("/");
   };

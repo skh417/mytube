@@ -1,12 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import App from "./app";
 import VideoDetail from "./components/video-detail/video-detail";
 import Nav from "./nav/nav";
 
 const Router = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
-  const [selectVideo, setSelectVideo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     youtube
@@ -27,44 +27,38 @@ const Router = ({ youtube }) => {
         .search(query) //
         .then((results) => {
           setVideos(results);
-          setSelectVideo(null);
         });
     },
     [youtube]
   );
 
+  const onVideoClick = (video) => {
+    console.log("선택된 비디오 : ", video);
+
+    navigate(`/video/${video.id}`, { replace: false, state: video });
+  };
+
   return (
     <>
-      <Nav
-        onSearch={search}
-        setSelectVideo={setSelectVideo}
-        getMostPopularVideos={getMostPopularVideos}
-      />
+      <Nav onSearch={search} getMostPopularVideos={getMostPopularVideos} />
 
       <div className="router">
         <Routes>
           <Route
             path="/"
-            element={
-              <App
-                videos={videos}
-                selectVideo={selectVideo}
-                setSelectVideo={setSelectVideo}
-              />
-            }
+            element={<App videos={videos} onVideoClick={onVideoClick} />}
           />
           <Route path="/video">
-            <Route path=":id" element={<VideoDetail />} />
+            <Route
+              path=":id"
+              element={
+                <VideoDetail videos={videos} onVideoClick={onVideoClick} />
+              }
+            />
           </Route>
           <Route
             path="*"
-            element={
-              <App
-                videos={videos}
-                selectVideo={selectVideo}
-                setSelectVideo={setSelectVideo}
-              />
-            }
+            element={<App videos={videos} onVideoClick={onVideoClick} />}
           />
         </Routes>
       </div>
