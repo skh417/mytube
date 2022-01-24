@@ -16,7 +16,7 @@ const VideoDetail = ({ videos, onVideoClick }) => {
           title="youtube-video"
           type="text/html"
           width="100%"
-          height="405"
+          height="500"
           src={`https://www.youtube.com/embed/${id}`}
           frameBorder="0"
           allowFullScreen

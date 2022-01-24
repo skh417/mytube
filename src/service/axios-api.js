@@ -10,10 +10,15 @@ class YoutubeAxios {
           part: "snippet",
           chart: "mostPopular",
           regionCode: "KR",
-          maxResults: 25,
+          maxResults: 12,
         },
       });
-      return response.data.items;
+
+      return {
+        videos: response.data.items,
+        nextPageToken: response.data.nextPageToken,
+        prevPageToken: response.data.prevPageToken,
+      };
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +39,23 @@ class YoutubeAxios {
         ...item,
         id: item.id.videoId,
       }));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async viewMore(nextPageToken) {
+    try {
+      const response = await this.youtube.get("videos", {
+        params: {
+          part: "snippet",
+          chart: "mostPopular",
+          regionCode: "KR",
+          maxResults: 10,
+          pageToken: nextPageToken,
+        },
+      });
+      return response;
     } catch (error) {
       console.log(error);
     }

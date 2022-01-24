@@ -6,19 +6,29 @@ import Nav from "./nav/nav";
 
 const Router = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
+  const [userState, setUserState] = useState({});
+  const [nextPageToken, setNextPageToken] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     youtube
       .getMostPopular() //
-      .then((res) => setVideos(res));
+      .then((res) => {
+        setVideos(res.videos);
+        setNextPageToken(res.nextPageToken);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getMostPopularVideos = useCallback(() => {
     youtube
       .getMostPopular() //
-      .then((res) => setVideos(res));
+      .then((res) => {
+        setVideos(res.videos);
+        setNextPageToken(res.nextPageToken);
+      });
   }, [youtube]);
 
   const search = useCallback(
@@ -33,20 +43,37 @@ const Router = ({ youtube }) => {
   );
 
   const onVideoClick = (video) => {
-    console.log("선택된 비디오 : ", video);
-
     navigate(`/video/${video.id}`, { replace: false, state: video });
+  };
+
+  const onViewMoreClick = async () => {
+    const response = await youtube.viewMore(nextPageToken);
+    const newVideos = [...videos];
+
+    setNextPageToken(response.data.nextPageToken);
+    setVideos(newVideos.concat(response.data.items));
   };
 
   return (
     <>
-      <Nav onSearch={search} getMostPopularVideos={getMostPopularVideos} />
+      <Nav
+        onSearch={search}
+        getMostPopularVideos={getMostPopularVideos}
+        userState={userState}
+        setUserState={setUserState}
+      />
 
       <div className="router">
         <Routes>
           <Route
             path="/"
-            element={<App videos={videos} onVideoClick={onVideoClick} />}
+            element={
+              <App
+                videos={videos}
+                onVideoClick={onVideoClick}
+                onViewMoreClick={onViewMoreClick}
+              />
+            }
           />
           <Route path="/video">
             <Route
