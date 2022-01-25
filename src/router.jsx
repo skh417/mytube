@@ -37,6 +37,7 @@ const Router = ({ youtube }) => {
         .search(query) //
         .then((results) => {
           setVideos(results);
+          setNextPageToken(results[0].nextPageToken);
         });
     },
     [youtube]

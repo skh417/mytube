@@ -29,15 +29,17 @@ class YoutubeAxios {
       const response = await this.youtube.get("search", {
         params: {
           part: "snippet",
-          maxResults: 27,
+          maxResults: 12,
           type: "video",
           q: query,
         },
       });
+      const nextPageToken = response.data.nextPageToken;
 
       return response.data.items.map((item) => ({
         ...item,
         id: item.id.videoId,
+        nextPageToken,
       }));
     } catch (error) {
       console.log(error);
@@ -51,8 +53,9 @@ class YoutubeAxios {
           part: "snippet",
           chart: "mostPopular",
           regionCode: "KR",
-          maxResults: 10,
+          maxResults: 6,
           pageToken: nextPageToken,
+          q: "",
         },
       });
       return response;

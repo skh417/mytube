@@ -14,7 +14,7 @@ const VideoList = React.memo(({ videos, onVideoClick, onViewMoreClick }) => {
           <VideoItem key={video.id} video={video} onVideoClick={onVideoClick} />
         ))}
       </ul>
-      <ViewMore onViewMoreClick={onViewMoreClick} />
+      {!id && <ViewMore onViewMoreClick={onViewMoreClick} />}
     </>
   );
 });
